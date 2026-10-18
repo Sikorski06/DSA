@@ -13,4 +13,4 @@ The goal is to **understand how algorithms work**, **implement them iteratively*
 
 ---
 
-*This repository is a work in progress for learning and practice.*
+*This repository is a work in progress for learning and practice.Code comments are in Polish because of the course language.*
