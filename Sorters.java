@@ -1,10 +1,11 @@
 package Learning4AiSD.DSA;
-import static java.util.Objects.isNull;
 
+import java.util.ArrayList;
+import java.util.List;
 public class Sorters <T extends Comparable<T>>{
 
     public void validateParameters(T[] data){
-        if(isNull(data)){
+        if(data == null){
             throw new IllegalArgumentException("Input cant be null");
         }
     }
@@ -58,6 +59,83 @@ public class Sorters <T extends Comparable<T>>{
             }
         }
     }
+    public void QuickSortHoare(T[] data){
+        List<Integer> starts = new ArrayList<>(); // lista z poczatkami podtablic
+        List<Integer> ends = new ArrayList<>(); // lista z koncami podtablic
 
+        int left = 0;
+        int right = data.length -1;
+
+        starts.add(left);
+        ends.add(right);    //dodanie calej tablicy do sortowania
+        int n = 1; // licznik podproblemów - podtablic
+
+        int pivot;
+
+        if (left < right){
+            while(n > 0){ // dopóki są podproblemy
+                n--;
+                left = starts.remove(n); // bierzemy kolejną podtablice ze stosu
+                right = ends.remove(n);
+                pivot = partition(data,left, right);
+
+                if(left < pivot){   // jezeli sa w ogole liczby mniejsze od pivota to jest to kolejny podproblem
+                    starts.add(left);
+                    ends.add(pivot);
+                    n++;
+                }
+                if(pivot+1 < right){ // jezeli sa w ogole liczby wieksze od pivota to jest to kolejny podproblem
+                    starts.add(pivot+1);
+                    ends.add(right);
+                    n++;
+                }
+            }
+        }
+    }
+
+    public int partition(T[] data, int start, int end){
+        T pivot = data[start]; // pivto to poczatek tablicy
+        // Random random = new Random();    // random pivot
+        // int pivotId = random.nextInt(end-start + 1) + start;
+        // T pivot = data[pivotId];
+        // int mid = (start + end) / 2;
+        // T pivot = medianOfThree(data[start], data[mid], data[end]);
+
+        int left = start -1;
+        int right = end + 1;
+
+        while (true) { 
+            while(data[++left].compareTo(pivot) < 0){} // od lewej az nie napotkamy wiekszej od pivot
+            while(data[--right].compareTo(pivot)> 0){} // od prawej az nie napotkamy mnijeszej od pivota
+            if(left < right){ // ukladanie - po lewej mniejsze od pivot po prawej wieksze od pivot
+                swap(data, left, right);
+            }
+            else{
+                break;
+            }
+        }
+        return right;
+    }
+
+    public void swap(T[] data, int left, int right){
+        T temp = data[left];
+        data[left] = data[right];
+        data[right] = temp;
+    }
+
+    private T medianOfThree(T a, T b, T c) {
+
+    if (a.compareTo(b) <= 0 && b.compareTo(c) <= 0
+            || c.compareTo(b) <= 0 && b.compareTo(a) <= 0) {
+        return b;
+    }
+
+    if (b.compareTo(a) <= 0 && a.compareTo(c) <= 0
+            || c.compareTo(a) <= 0 && a.compareTo(b) <= 0) {
+        return a;
+    }
+
+    return c;
+}
     
 }
