@@ -137,5 +137,49 @@ public class Sorters <T extends Comparable<T>>{
 
     return c;
 }
+public void HeapSort(T[] data) {
+        buildHeap(data); // budowa pierwszego kopca
+
+        int n = data.length;
+
+        for (int i = n - 1; i > 0; i--) { // przechodzimy całą tablice
+            swap(data, 0, i); // szczyt kopca na koniec
+            heapify(data, 0, i); //naprawienie kopca
+        }
+    }
+
+    private void buildHeap(T[] data) {
+        int n = data.length;
+
+        for (int i = n / 2 - 1; i >= 0; i--) { //taki zakres bo liscie nie maja dzieci wiec nie trzeba ich naprawiac    
+            heapify(data, i, n);
+        }
+    }
+
+    private void heapify(T[] data, int parentId, int maxId) {
+        while (true) {
+            int leftChildId = 2 * parentId + 1;
+            int rightChildId = 2 * parentId + 2;
+            int largestValId = parentId; // zakladamy ze rodzic jest najwiekszy
+
+            if (leftChildId < maxId // sprawdzamy czy lewe dziecko jest w dalej nieposortowanej czesci tablicy
+                    && data[leftChildId].compareTo(data[largestValId]) > 0) {
+                largestValId = leftChildId;
+            }
+
+            if (rightChildId < maxId // sprawdzamy czy prawe dziecko jest w dalej nieposortowanej czesci tablicy
+                    && data[rightChildId].compareTo(data[largestValId]) > 0) {
+                largestValId = rightChildId;
+            }
+
+            if (largestValId == parentId) { // jesli wszystko jest dobrze to zamykamy
+                break;
+            }
+
+            swap(data, parentId, largestValId); // w innym wypadku zamieniamy miejscami zeby wieksze bylo rodzicem
+
+            parentId = largestValId; // schodzimy niżej bo z powodu zmiany heap mógł się zepsuć
+        }
+    }
     
 }
