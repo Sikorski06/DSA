@@ -1,5 +1,3 @@
-
-
 public class HashTable<T extends Comparable<T>>{
     private static final int DEFAULT_SIZE = 127; // bez parametru
     private final Elem nil = null;
