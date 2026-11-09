@@ -1,5 +1,3 @@
-package Learning4AiSD.DSA;
-
 import java.util.ArrayList;
 import java.util.List;
 public class Sorters <T extends Comparable<T>>{
