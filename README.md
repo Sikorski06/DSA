@@ -10,6 +10,8 @@ The goal is to **understand how algorithms work**, **implement them iteratively*
 
 - **Merge Sort**,
 - **Insertion Sort**,
+- **Hash Tables**,
+- **LLRB Red-Black Tree**,
 
 ---
 
